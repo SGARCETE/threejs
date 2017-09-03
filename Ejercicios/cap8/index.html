@@ -89,7 +89,7 @@
 			Render.shadowMapEnabled = true;
 			//El escenario
 			var Escenario=new THREE.Scene();
-			var teclado=new THREEx.KeyboardState();
+			var teclado=new THREEx.KeyboardState(); // todo Declaramos el teclado
 			// la Figura 
 			var Figura;
 			var controls;
@@ -117,7 +117,7 @@
 					//agregando la cámara al escenario
 					Escenario.add(Camara);
 					// agregamos todo el escenario y la cámara al render
-					controls=new THREE.OrbitControls(Camara,Render.domElement);
+					controls=new THREE.OrbitControls(Camara,Render.domElement); //todo definimos el control de la camara con la libreria Orbitcontrols.js
 			}
 			function cargar_modelo(){
 					// Geometría
@@ -190,12 +190,16 @@
 					
 					requestAnimationFrame(animacion);
 					render_modelo();
+
+                    //todo definimos velocidad o tiempo de traslacion
 					
 					tiempo=0.01;
 					distancia=100;
 					recorrido=distancia*tiempo;
 					
 					obj_mov=mallaCubo;
+
+                    //todo Acá definimos que hacemos con cada tecla del teclado
 					
 					if(teclado.pressed("up")){
 						obj_mov.position.z+=recorrido;
@@ -250,7 +254,7 @@
 						console.log(controls);
 						
 					}
-					controls.target.set(obj_mov.position.x,obj_mov.position.y,obj_mov.position.z);
+					controls.target.set(obj_mov.position.x,obj_mov.position.y,obj_mov.position.z); //todo con esto definimos un target para la camara, con esto podemos seguir el movimiento de un objeto en particular en segunda persona.
 					
 					/*
 					//rotar

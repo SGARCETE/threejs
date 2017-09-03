@@ -124,11 +124,13 @@
 					//controls=new THREE.OrbitControls(Camara,Render.domElement);
 				
 				// crear una instancia
-				controls = new THREE.FirstPersonControls( Camara );
-				
+				controls = new THREE.FirstPersonControls( Camara ); //todo utilizamos la libreria firstPersonControls para
+
+               // todo acá definimos los movimientosdel mouse
+
 				controls.lookSpeed = 0.1;
 				controls.movementSpeed = 100;
-				controls.lookVertical = true;
+				controls.lookVertical = true; //todo Si queremos que tome los movimientos verticales.
 				controls.activeLook=true;
 					
 					
@@ -230,12 +232,12 @@
 			}
 			
 			
-			var clock = new THREE.Clock();
+			var clock = new THREE.Clock(); //todo definimos el tiempo en el que se va a actualizar la vista
 			
 			function render_modelo(){
 					
 					var delta = clock.getDelta();
-					controls.update(delta);
+					controls.update(delta); //todo le pasamos al control el valor del tiempo de movimiento
 					
 					Render.render(Escenario,Camara);
 			}

@@ -184,7 +184,9 @@
 			
 			
 			function animacion(){
-					
+
+                    //Ejemplos de translation, rotation y scalation.
+
 					requestAnimationFrame(animacion);
 					render_modelo();
 					
@@ -193,16 +195,18 @@
 					recorrido=distancia*tiempo;
 					
 					//rotar
+                    //El cubo rota en las posiciones
+
 					mallaCubo.rotation.x+=recorrido;
 					mallaCubo.rotation.y+=recorrido;
 					mallaCubo.rotation.z+=recorrido;
 					
-					// escalar
+					// escalar (El cubo se va agrandando cada segundo)
 					mallaCubo.scale.x+=recorrido*0.1;
 					mallaCubo.scale.y+=recorrido*0.1;
 					mallaCubo.scale.z+=recorrido*0.1;
 					
-					//traslación
+					//traslación ()
 					mallaCubo.position.x+=0.1;
 					
 					mallaCubo.rotation.x=Math.PI/3;

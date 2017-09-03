@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="js/three.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Plano</title>
+
+</head>
+<body >
+<div id="render"></div>
+</body>
+<script>
+    //Preparamos el render
+    Render=new THREE.WebGLRenderer();
+    //Tamaño del render(resultado)
+    Render.setSize(800,600);
+    //Se agrega el render al documento html
+    document.getElementById('render').appendChild(Render.domElement);
+
+    //El escenario
+    Escenario=new THREE.Scene();
+    var array_extrude=[]; //todo Usamos este array para agregarle profundidad a la figura sin necesidad de ponerlo en el array de vertices (no hacmeo vertices al pedo)
+
+    //La cámara
+    Camara=new THREE.PerspectiveCamera();
+    //Acercamos la cámara en z es profundidad para ver el punto
+    Camara.position.z=100;
+    //agregando la cámara al escenario
+    Escenario.add(Camara);
+    // Geometría
+    Geometria=new THREE.Geometry();
+    // vector a dibujar
+    var vertices=[[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0]];
+    var long_vertices=vertices.length;
+    for(i=0;i<long_vertices;i++){
+        x=vertices[i][0];
+        y=vertices[i][1];
+        z=vertices[i][2];
+        //Agregamos vértices al vector
+        Vector=new THREE.Vector3(x,y,z);
+        //Agregamos el vector a la geometría
+        Geometria.vertices.push(Vector);
+        array_extrude.push(Vector)
+    }
+
+    // figura //acá le agregamos profundida a la figura y la creamos
+    var forma_figura=new THREE.Shape(array_extrude);
+
+    // extrusi�n
+    var datos_extrusion={
+        amount:10, //cantidad de profundidad
+        bevelEnabled:false, // activando bisel
+        bevelSegments:1, // segmentos del bisel
+        steps:10, // "profundidad y N�m. de segmentos que marcan la profundidad�
+        bevelThickness:100 // grosor del bisel
+    };
+
+    // agregamos un material para que el punto tenga color
+    Material=new THREE.ParticleBasicMaterial({color:0XFF0000});
+    // creamos una partícula con la geometría y el material
+    Figura=new THREE.Line(Geometria,Material);
+    // agregamos la partícula al escenario
+    Escenario.add(Figura);
+    // agregamos todo el escenario y la cámara al render
+    Render.render(Escenario,Camara);
+
+    var extrude_geometria=new THREE.ExtrudeGeometry(forma_figura,datos_extrusion); //Le agrega profundida a la figura que creemos
+
+    var mallaextrusion=new THREE.Mesh(extrude_geometria,material);
+
+    var material = new THREE.MeshBasicMaterial({color:0xFF0000});
+
+
+//    // agregamos un material para que el punto tenga color
+//    //Material=new THREE.ParticleBasicMaterial({color:0XFF0000});
+//    // creamos una part�cula con la geometr�a y el material
+//    Figura=new THREE.Line(Geometria,Material);
+//    // agregamos la part�cula al escenario
+//    Escenario.add(Figura);
+//    Escenario.add(mallaextrusion);
+
+</script>
+</html>

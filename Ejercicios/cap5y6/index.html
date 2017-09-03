@@ -94,74 +94,74 @@
 			var Aspecto=Ancho/Alto;
 			var cerca=0.1;
 			var lejos=10000;
-			//La cámara
+			//La cï¿½mara
 			var Camara=new THREE.PerspectiveCamera(Angulo,Aspecto,cerca,lejos);
 			
-			// textura la misma indicación que maneja la figura
+			// textura la misma indicaciï¿½n que maneja la figura
 			var textura = new THREE.ImageUtils.loadTexture('texturas/muro.jpg');
 			
-			// textura la misma indicación que maneja las figuras geometricas
+			// textura la misma indicaciï¿½n que maneja las figuras geometricas
 			var textura_geometrias = new THREE.ImageUtils.loadTexture('texturas/muro.jpg');
 			var material_geometrias = new THREE.MeshBasicMaterial({map:textura_geometrias,side:THREE.DoubleSide,wireframe:false});
 			
-			// textura la misma indicación que maneja el plano
+			// textura la misma indicaciï¿½n que maneja el plano
 			var textura_plano = new THREE.ImageUtils.loadTexture('texturas/cesped.jpg');
 			
 			
-			THREEx.WindowResize(Render,Camara);
+			THREEx.WindowResize(Render,Camara); //Esto adapta el modelo a la pantalla
 			/******************************* inicio *******************/
 			function inicio(){
-					//Tamaño del render(resultado)
+					//Tamaï¿½o del render(resultado)
 					Render.setSize(Ancho,Alto);
 					//Se agrega el render al documento html
 					document.getElementById('render').appendChild(Render.domElement);
-					//Acercamos la cámara en z es profundidad para ver el punto
+					//Acercamos la cï¿½mara en z es profundidad para ver el punto
 					Camara.position.z=100;
 					Camara.position.y=100;
 					Camara.rotation.y=Math.PI;
 					
-					//agregando la cámara al escenario
+					//agregando la cï¿½mara al escenario
 					Escenario.add(Camara);
 					// Territorio 
 					//crear_plano();
 					// cargar nuevos modelos
 					//cargar_modelo();
-					// agregamos todo el escenario y la cámara al render
+					// agregamos todo el escenario y la cï¿½mara al render
 					controls=new THREE.OrbitControls(Camara,Render.domElement);
 			}
 			function cargar_modelo(){
 					
-					// Geometría
+					// Geometrï¿½a
 					Geometria=new THREE.Geometry();
 					var vertices=[[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0]];
 					
 					var long_vertices=vertices.length;
-					var array_extrude=[];
+					var array_extrude=[]; //todo Usamos este array para agregarle profundidad a la figura sin necesidad de ponerlo en el array de vertices (no hacmeo vertices al pedo)
 					
 					for(i=0;i<long_vertices;i++){
 							x=vertices[i][0];
 							y=vertices[i][1];
 							z=vertices[i][2];
-							//Agregamos vértices al vector
+							//Agregamos vï¿½rtices al vector
 							Vector=new THREE.Vector3(x,y,z);
-							//Agregamos el vector a la geometría
+							//Agregamos el vector a la geometrï¿½a
 							Geometria.vertices.push(Vector);   
 							array_extrude.push(Vector);
 					}
 					
-					// figura
+					// figura //acÃ¡ le agregamos profundida a la figura y la creamos
 					var forma_figura=new THREE.Shape(array_extrude);
 					
-					// extrusión 
+					// extrusiï¿½n 
 					var datos_extrusion={
 										amount:10, //cantidad de profundidad 
 										bevelEnabled:false, // activando bisel
 										bevelSegments:1, // segmentos del bisel
-										steps:10, // "profundidad y Núm. de segmentos que marcan la profundidad“
+										steps:10, // "profundidad y Nï¿½m. de segmentos que marcan la profundidadï¿½
 										bevelThickness:100 // grosor del bisel
 										};
 					
-					var extrude_geometria=new THREE.ExtrudeGeometry(forma_figura,datos_extrusion);
+					var extrude_geometria=new THREE.ExtrudeGeometry(forma_figura,datos_extrusion); //Le agrega profundida a la figura que creemos
 					//repetir la textura figura
 					textura.repeat.set(0.06,0.06);
 					//repetir la textura de la figura
@@ -172,15 +172,15 @@
 					var mallaextrusion=new THREE.Mesh(extrude_geometria,material);
 					// agregamos un material para que el punto tenga color
 					Material=new THREE.ParticleBasicMaterial({color:0XFF0000});
-					// creamos una partícula con la geometría y el material
+					// creamos una partï¿½cula con la geometrï¿½a y el material
 					Figura=new THREE.Line(Geometria,Material);
-					// agregamos la partícula al escenario
+					// agregamos la partï¿½cula al escenario
 					Escenario.add(Figura);
 					Escenario.add(mallaextrusion);
 			}
 			$('#figura').click(function(){cargar_modelo();});
 			function crear_plano(){
-					//Geometría del plano
+					//Geometrï¿½a del plano
 					Geometria_plano=new THREE.PlaneGeometry(100,100,10,10);
 					//Textura
 					

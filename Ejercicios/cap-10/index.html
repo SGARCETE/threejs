@@ -72,6 +72,8 @@
 	<div style="position: absolute;" id="opts"></div>
 	
 	<script type="text/javascript">
+
+                    //todo acá agregamos los elementos que aparezcan en el box de dat.gui
 					
 					var controlsBox = { w:1, h:1,d:0.26};
 					
@@ -105,8 +107,11 @@
 			/******************************* variables *******************/
 			//Preparamos el render
 			var Render=new THREE.WebGLRenderer({ antialias:true,preserveDrawingBuffer:true});
+
+            //todo activamos las sombras en el render
 			Render.shadowMapEnabled=true;
-			//El escenario
+
+            //El escenario
 			var Escenario=new THREE.Scene();
 			var teclado=new THREEx.KeyboardState();
 			// la Figura 
@@ -151,6 +156,8 @@
 					// El plano (Territorio)
 					Territorio=new THREE.Mesh(Geometria_plano,Material_plano);
 					Territorio.rotation.x=Math.PI/2;
+
+                    //todo le decimos al territorio que reciba sombras.
 					Territorio.receiveShadow=true;
 					
 				    Escenario.add(Territorio);
@@ -163,6 +170,8 @@
 					
 					requestAnimationFrame(animacion);
 					render_modelo();
+
+                    
 					if(typeof  ModeloFinal != "undefined"){
 					tiempo=0.01;
 					distancia=100;
@@ -231,7 +240,8 @@
 			/**************************llamado a las funciones ******************/
 			function cargar_cubo(){
 				geometriaCubo = new THREE.CubeGeometry( 10, 10, 10 );
-				
+
+                //todo esto es un arreglo de texturas, la idea es ponerle una textura diferente a cada parte del cubo.
 				var ImgTextura = [];
 
 				ImgTextura.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'texturas/cesped.jpg' ) }));
@@ -241,16 +251,18 @@
 				
 				ImgTextura.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'texturas/cesped.jpg' ) }));
 				
-				ImgTextura.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'texturas/cesped.jpg' ) }));
+				ImgTextura.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'texturas/muro.jpg' ) }));
 
-				var material = new THREE.MeshFaceMaterial( ImgTextura);
+				var material = new THREE.MeshFaceMaterial( ImgTextura); //todo agregamos las partes a un material
 				
-				mallaCubo = new THREE.Mesh( geometriaCubo,material);
+				mallaCubo = new THREE.Mesh( geometriaCubo,material); // todo le agregamos el arreglo de texturas al cubo, una va a tener la textura de muro y el resto la de cesped.
 				Escenario.add(mallaCubo);
 				mallaCubo.position.set(0,5,30);
 				mallaCubo.receiveShadow=true;
 								
 			}
+
+			//todo botón que cambia la textura del cubo según lo que elija el usuario en el menú.
 			$( "#textura1" ).click(function(){
 				for(i=0;i<6;i++){
 				
@@ -258,7 +270,8 @@
 				
 				}
 			});
-			
+
+            //todo botón que cambia la textura del cubo según lo que elija el usuario en el menú.
 			$( "#textura2" ).click(function(){
 				for(i=0;i<6;i++){
 				mallaCubo.material.materials[i].map=new THREE.ImageUtils.loadTexture("texturas/cesped.jpg");
@@ -280,6 +293,8 @@
 				ModeloFinal.scale.set(10,10,10);	
 				ModeloFinal.position.set(10,13,10);
 				ModeloFinal.rotation.y=Math.PI;
+
+                //todo le decimos al modelo que emita sombra
 				ModeloFinal.castShadow=true;
 				
 				
@@ -301,15 +316,20 @@
 			sunlight.position.set(500, 500, -500);
 			sunlight.intensity = 1.3;
 			
-			
+			//todo Activamos la proyectos de sombra en la luz
 			sunlight.castShadow = true;
+
+            //todo Con esto podemos ver en que dirección está siendo emitida la luz, se muestra como unas lineas.
 			sunlight.shadowCameraVisible = true;
 			
 			sunlight.shadowCameraNear = 250;
 			sunlight.shadowCameraFar = 20000;
 			
 			intensidad=50;
-			
+
+
+			//Todo podemos modificar los parametros de las sombras para que se vea de manera diferente.
+
 			sunlight.shadowCameraLeft = -intensidad;
 			sunlight.shadowCameraRight = intensidad;
 			sunlight.shadowCameraTop = intensidad;

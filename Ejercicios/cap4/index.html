@@ -16,14 +16,14 @@
 			var Render=new THREE.WebGLRenderer();
 			//El escenario
 			var Escenario=new THREE.Scene();
-			
-			// la Figura 
+
+			// la Figura
 			var Figura;
 			var controls;
 			var Ancho=window.innerWidth-15;
 			var Alto=window.innerHeight-10;
-			
-			var Angulo = 45;	
+
+			var Angulo = 45;
 			var Aspecto=Ancho/Alto;
 			var cerca=0.1;
 			var lejos=10000;
@@ -43,29 +43,29 @@
 					Camara.position.z=50;
 					//agregando la cámara al escenario
 					Escenario.add(Camara);
-					// Territorio 
+					// Territorio
 					crear_plano();
 					// cargar nuevos modelos
 					cargar_modelo();
 					// agregamos todo el escenario y la cámara al render
-					controls=new THREE.OrbitControls(Camara,Render.domElement);
+					controls=new THREE.OrbitControls(Camara,Render.domElement); //Libreria que toma el movimiento del mouse y mueve la camara
 			}
 			function cargar_modelo(){
-					
+
 					// Geometría
 					Geometria=new THREE.Geometry();
 					var vertices=[[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0],[2,7,2],[7,2,2],
-                    [12,7,2],[12,17,2],[7,12,2],[2,17,2],[2,7,2]];
-					
+                    [12,7,2],[12,17,2],[7,12,2],[2,17,2],[2,7,2]]; //Vertices para crear la figura
+
 					var long_vertices=vertices.length;
-					for(i=0;i<long_vertices;i++){
+					for(i=0;i<long_vertices;i++){ //Ciclo para dibujar la figura
 							x=vertices[i][0];
 							y=vertices[i][1];
 							z=vertices[i][2];
 							//Agregamos vértices al vector
 							Vector=new THREE.Vector3(x,y,z);
 							//Agregamos el vector a la geometría
-							Geometria.vertices.push(Vector);   
+							Geometria.vertices.push(Vector);
 					}
 					// agregamos un material para que el punto tenga color
 					Material=new THREE.ParticleBasicMaterial({color:0XFF0000});
@@ -74,7 +74,7 @@
 					// agregamos la partícula al escenario
 					Escenario.add(Figura);
 			}
-			
+
 			function crear_plano(){
 					//Geometría del plano
 					Geometria_plano=new THREE.PlaneGeometry(1000,1000,10,10);
@@ -95,12 +95,12 @@
 					render_modelo();
 			}
 			function render_modelo(){
-					controls.update();
+					controls.update(); // Aca updateamos el movimiento de la camara cuando movemos el mouse
 					Figura.rotation.y=Figura.rotation.y+0.01;
 					Render.render(Escenario,Camara);
 			}
 			/**************************llamado a las funciones ******************/
-			
+
 			inicio();
 			animacion();
 	</script>
